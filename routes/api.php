@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+
+Route::get('events','CalendarEventsController@all');
+Route::post('events/new','CalendarEventsController@create');
+Route::post('events/delete','CalendarEventsController@delete');
