@@ -1,4 +1,4 @@
-# Project Title
+# Calendar Events (Coding Challenge)
 
 Calendar Events (Coding Challenge)
 
@@ -11,7 +11,7 @@ These instructions will get you a copy of the project up and running on your loc
 Tools to get started
 
 ```
-Vue.js, Laravel, Vuex, Vue Router, npm, composer, mysql server
+Vue.js, Laravel, Vuex, Vue Router, npm, composer, mysql server, php 7
 ```
 
 ### Installing
