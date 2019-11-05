@@ -20,7 +20,7 @@
 		:defaultDate="this.currentMonth"
 		/>
 
-		<PickMonth ref="pickMonth"/>
+		<PickMonth ref="pickMonth"/> 
 	</div>
 </template>
 

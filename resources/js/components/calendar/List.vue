@@ -1,6 +1,11 @@
 <template>
     <div class="container-fluid">
-        <h3>{{ currentMonth | monthDisplay }}</h3>
+        <div class="row">
+            <div class="col-8"><h3> {{ currentMonth | monthDisplay }}</h3></div>
+            <div class="col">
+                <button class="fc-pickMonthButton-button fc-button fc-button-primary float-right mb-2" @click.prevent="showModal">Pick Month</button>
+            </div>
+        </div>
         <table class="table table-striped">
             <template v-if="calendarDates">
                 <thead>
@@ -15,23 +20,33 @@
                 </tbody>
             </template>
         </table>
+         <PickMonth /> 
     </div>    
 </template>
  
 <script>
     import Moment from 'moment';
     import { extendMoment } from 'moment-range';
+    import PickMonth from './PickMonth.vue'
 
     const moment = extendMoment(Moment);
 
     export default {
         name: 'List',
+        components: {
+            PickMonth
+        },
 		mounted() {
             if(!this.currentMonth){
                 this.$store.dispatch('changeMonth', moment().format('YYYY-MM-DD'));
                 this.$store.dispatch('getEvents', this.viewDates );
             }
-		},        
+        },
+        watch:{
+            currentMonth(){
+                this.$store.dispatch('getEvents', this.viewDates );
+            }
+        },     
         computed:{
             calendarDates(){
                 let dateRange = moment().range(moment(this.viewDates.start), moment(this.viewDates.end));
@@ -74,6 +89,9 @@
                     `).join('')}
                 </ul>`;
                 return temp;
+            },
+            showModal: function() {
+                this.$modal.show('pick-month');
             },
         },
 

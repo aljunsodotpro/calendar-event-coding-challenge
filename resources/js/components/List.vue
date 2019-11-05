@@ -31,7 +31,7 @@
         name: 'List',
         components: { 
             ListView,
-            AddEvent
+            AddEvent,
         }
     }
 </script>

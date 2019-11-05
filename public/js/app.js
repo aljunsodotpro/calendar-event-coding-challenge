@@ -16612,6 +16612,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var moment_range__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment-range */ "./node_modules/moment-range/dist/moment-range.js");
 /* harmony import */ var moment_range__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment_range__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _PickMonth_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./PickMonth.vue */ "./resources/js/components/calendar/PickMonth.vue");
 //
 //
 //
@@ -16632,14 +16633,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 var moment = Object(moment_range__WEBPACK_IMPORTED_MODULE_1__["extendMoment"])(moment__WEBPACK_IMPORTED_MODULE_0___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'List',
+  components: {
+    PickMonth: _PickMonth_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   mounted: function mounted() {
     if (!this.currentMonth) {
       this.$store.dispatch('changeMonth', moment().format('YYYY-MM-DD'));
+      this.$store.dispatch('getEvents', this.viewDates);
+    }
+  },
+  watch: {
+    currentMonth: function currentMonth() {
       this.$store.dispatch('getEvents', this.viewDates);
     }
   },
@@ -16682,6 +16698,9 @@ var moment = Object(moment_range__WEBPACK_IMPORTED_MODULE_1__["extendMoment"])(m
         return "\n                        <li>".concat(event.title, "</li>\n                    ");
       }).join(''), "\n                </ul>");
       return temp;
+    },
+    showModal: function showModal() {
+      this.$modal.show('pick-month');
     }
   },
   filters: {
@@ -72383,38 +72402,70 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container-fluid" }, [
-    _c("h3", [_vm._v(_vm._s(_vm._f("monthDisplay")(_vm.currentMonth)))]),
-    _vm._v(" "),
-    _c(
-      "table",
-      { staticClass: "table table-striped" },
-      [
-        _vm.calendarDates
-          ? [
-              _vm._m(0),
-              _vm._v(" "),
-              _c(
-                "tbody",
-                _vm._l(_vm.calendarDates, function(calDate, index) {
-                  return _c("tr", { key: index }, [
-                    _c("td", { attrs: { width: "10%" } }, [
-                      _vm._v(_vm._s(_vm._f("dateDisplay")(calDate)))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", {
-                      domProps: { innerHTML: _vm._s(_vm.getDateEvent(calDate)) }
-                    })
-                  ])
-                }),
-                0
-              )
-            ]
-          : _vm._e()
-      ],
-      2
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "container-fluid" },
+    [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-8" }, [
+          _c("h3", [
+            _vm._v(" " + _vm._s(_vm._f("monthDisplay")(_vm.currentMonth)))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col" }, [
+          _c(
+            "button",
+            {
+              staticClass:
+                "fc-pickMonthButton-button fc-button fc-button-primary float-right mb-2",
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.showModal($event)
+                }
+              }
+            },
+            [_vm._v("Pick Month")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "table",
+        { staticClass: "table table-striped" },
+        [
+          _vm.calendarDates
+            ? [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.calendarDates, function(calDate, index) {
+                    return _c("tr", { key: index }, [
+                      _c("td", { attrs: { width: "10%" } }, [
+                        _vm._v(_vm._s(_vm._f("dateDisplay")(calDate)))
+                      ]),
+                      _vm._v(" "),
+                      _c("td", {
+                        domProps: {
+                          innerHTML: _vm._s(_vm.getDateEvent(calDate))
+                        }
+                      })
+                    ])
+                  }),
+                  0
+                )
+              ]
+            : _vm._e()
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("PickMonth")
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
